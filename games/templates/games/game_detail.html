@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load comments %}
+{% block content %}
+<div class="container">
+    <div class="games">
+        <h2>{{ game.game_title }}</h2>
+
+        <p>{{ game.game_description|safe }}</p>
+    </div>
+    <hr>
+    {% get_comment_count for game as comment_count %}
+    <p>Комментарии({{ comment_count }}):</p>
+    {% if user.is_authenticated %}
+    {% get_comment_form for object as form %}
+    <form action="{% comment_form_target %}" method="POST">
+        {% csrf_token %}
+        {{ form.comment }}
+        {{ form.honeypot }}
+        {{ form.content_type }}
+        {{ form.object_pk }}
+        {{ form.timestamp }}
+        {{ form.security_hash }}
+        <input type="hidden" name="next" value="{{ game.get_absolute_url }}"/>
+        <br>
+        <input class="btn btn-primary" type="submit" value="Комментировать" id="id_submit"/>
+    </form>
+    {% else %}
+    <p>Пожалуйста <a href="{% url 'auth_login' %}">авторизуйтесь</a>, чтобы оставить комментарий.</p>
+    {% endif %}
+    <hr>
+    {% get_comment_list for game as comment_list %}
+    {% for comment in comment_list %}
+    {% if comment.is_public and not comment.is_removed %}
+    <div class="thumbnail">
+        <div style="border-bottom:1px solid #e5e5e5; margin-bottom:10px;">
+            <p style="color:#0C5196; margin-bottom:0;">{{ comment.user_name }}
+                <small style="font-size: 70%; color: #333"> {{ comment.submit_date }}</small>
+            </p>
+        </div>
+        <div>{{ comment.comment|linebreaks }}</div>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

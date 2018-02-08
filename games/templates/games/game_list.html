@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        {% for game in object_list %}
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+                <img src="{{ game.gameImg0 }}">
+                <div class="caption">
+                    <h3>{{ game.game_title }}</h3>
+                    <p>{{ game.game_description_min|safe }}</p>
+                    <p><a href="{{ game.get_absolute_url }}" class="btn btn-primary" role="button">Подробнее</a></p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}
