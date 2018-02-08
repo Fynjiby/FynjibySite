@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div>
+        <h2>{{ message.title_text }}<br>
+            <small style="font-size: 40%;"> {{ message.pub_date }}</small>
+        </h2>
+    </div>
+    <p>{{ message.message_text|safe }}</p>
+</div>
+
+{% endblock %}

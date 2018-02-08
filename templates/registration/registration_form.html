@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Register for an account" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="thumbnail">
+        <form class="form" role="form" accept-charset="UTF-8" method="post" action="">
+            {% csrf_token %}
+            <div class="form-group">
+                <label class="sr-only" for="exampleInputUserName2">Имя пользователя</label>
+                <input name="username" type="text" class="form-control" id="exampleInputUserName2"
+                       placeholder="Имя пользователя" required>
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="exampleInputEmail2">E-mail</label>
+                <input name="email" type="email" class="form-control" id="exampleInputEmail2"
+                       placeholder="E-mail" required>
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="exampleInputPassword2">Пароль</label>
+                <input name="password1" type="password" class="form-control" id="exampleInputPassword2"
+                       placeholder="Пароль" required>
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="exampleInputPassword3">Подтверждение пароля</label>
+                <input name="password2" type="password" class="form-control" id="exampleInputPassword3"
+                       placeholder="Подтверждение пароля" required>
+            </div>
+            <input type="submit" class="btn btn-primary btn-block" value="{% trans 'Submit' %}"/>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% comment %}
+**registration/registration_form.html**
+Used to show the form users will fill out to register. By default, has
+the following context:
+
+``form``
+The registration form. This will be an instance of some subclass
+of ``django.forms.Form``; consult `Django's forms documentation
+<http://docs.djangoproject.com/en/dev/topics/forms/>`_ for
+information on how to display this in a template.
+{% endcomment %}

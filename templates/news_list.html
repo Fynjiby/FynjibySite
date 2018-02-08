@@ -1,0 +1,14 @@
+{% for message in new_messages %}
+<div class="thumbnail">
+    <div id="element_news_list">
+        <div>
+            <h2><a href="/news/{{ message.id }}">{{ message.title_text }}</a><br>
+                <small style="font-size: 40%;"> {{ message.pub_date }}</small>
+            </h2>
+        </div>
+        <p>{{ message.message_text|truncatewords:25|safe }}</p>
+
+        <div style="text-align: right;"><a href="/news/{{ message.id }}">Подробнее...</a></div>
+    </div>
+</div>
+{% endfor %}

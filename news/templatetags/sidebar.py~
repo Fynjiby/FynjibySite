@@ -1,0 +1,16 @@
+# -*- coding:utf-8 -*-
+
+from django import template
+from news.models import message # импортируем модели
+# экземпляр класса, в котором все наши теги будут зарегистрированы
+register = template.Library() 
+# регистрируем наш тег, который будет выводить шаблон right_sidebar.html
+@register.inclusion_tag("right_sidebar.html")
+def show_sidebar():
+    tags = Tag.objects.all() # выбираем все теги
+    # выбираем все категории
+    categories = Category.objects.all().order_by("name")
+    # выбираем все статьи по id - для ссылок и title - для списка 
+    new_posts = Post.objects.values('id','title').order_by("-created")[:7]
+    # возвращаем наши объекты в шаблон
+    return {'tags': tags, 'categories': categories, 'new_posts': new_posts}

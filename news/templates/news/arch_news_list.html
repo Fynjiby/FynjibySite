@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for message in object_list|dictsortreversed:"pub_date" %}
+<div class="container">
+    <div class="thumbnail">
+        <div id="element_news_list">
+            <div>
+                <h2><a href="/news/{{ message.id }}">{{ message.title_text }}</a><br>
+                    <small style="font-size: 40%;"> {{ message.pub_date }}</small>
+                </h2>
+            </div>
+            <p>{{ message.message_text|truncatewords:25|safe }}</p>
+
+            <div style="text-align: right;"><a href="/news/{{ message.id }}">Подробнее...</a></div>
+        </div>
+    </div>
+</div>
+{% empty %}
+<p>Нет новостей</p>
+{% endfor %}
+{% if object_list.has_previous or object_list.has_next %}
+<div class="container">
+    <nav>
+        <ul class="pager">
+            <li class="previous {% if not object_list.has_previous %} disabled {% endif %}"><a
+                    href="{% if object_list.has_previous %}?page={{ object_list.previous_page_number }}{% else %}#{% endif %}"><span
+                    aria-hidden="true">&larr;</span> Предыдущая</a></li>
+       <span class="current">
+            Страница {{ object_list.number }} из {{ object_list.paginator.num_pages }}.
+        </span>
+            <li class="next {% if not object_list.has_next %} disabled {% endif %}"><a
+                    href="{% if object_list.has_next %}?page={{ object_list.next_page_number }}{% else %}#{% endif %}">Следующая
+                <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
+</div>
+{% endif %}
+{% endblock %}

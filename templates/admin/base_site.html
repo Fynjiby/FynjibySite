@@ -1,0 +1,10 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {% trans 'Django site admin' %}{% endblock %}
+
+{% block branding %}
+<h1 id="DevIndyGames"><a href="{% url 'admin:index' %}">News Administration</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
